@@ -1,9 +1,14 @@
-import { Department } from "../../types/departments.types";
-import deparmentData from "../data/departments.json";
+import { Department } from "../../types/department.types";
+import departmentData from "../data/departments.json";
 
 class DepartmentService {
+  public getTotalDepartments(): number {
+    const departments: Department[] = departmentData.data;
+    return departments.length;
+  }
+
   public getDepartments(): Department[] {
-    const departments: Department[] = deparmentData.data;
+    const departments: Department[] = departmentData.data;
 
     return departments;
   }
