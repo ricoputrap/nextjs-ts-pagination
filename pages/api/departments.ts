@@ -25,7 +25,7 @@ export default function handler(
     if (page > totalPages)
       throw new Error(`Page not found. Page ${page} is requested, only ${totalPages} pages are available.`);
 
-    const departments: Department[] = service.getDepartments();
+    const departments: Department[] = service.getDepartments(page, limit);
     
     const response: ResponseMultiple = {
       data: departments,
