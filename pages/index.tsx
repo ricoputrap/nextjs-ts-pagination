@@ -1,8 +1,15 @@
-import type { NextPage } from 'next'
+import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
 import Head from 'next/head'
 import MainTable from '../components/organisms/MainTable'
 
-const Home: NextPage = () => {
+type Props = {
+  data: any
+}
+
+const Home: NextPage<Props> = ({ data }) => {
+  
+  console.log("===== data:", data)
+
   return (
     <div>
       <Head>
@@ -20,6 +27,19 @@ const Home: NextPage = () => {
       </footer>
     </div>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+  const HOST = "https://nextjs-ts-pagination.vercel.app"
+  const URL = HOST + "/api/departments";
+  const res = await fetch(URL);
+  const data = await res.json();
+
+  return {
+    props: {
+      data
+    }
+  }
 }
 
 export default Home
