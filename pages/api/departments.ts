@@ -11,6 +11,9 @@ export default function handler(
   const service = new DepartmentService();
 
   try {
+    const HOST = req.headers.host
+    const URL = HOST + "/api/departments";
+
     const params: Params = req.query;
     const page: number = params["page"] || 1;
     const limit: number = params["limit"] || 5;
@@ -31,6 +34,24 @@ export default function handler(
       data: departments,
       totalItems,
       totalPages
+    }
+
+    // next page data node
+    if (page < totalPages) {
+      const nextPage = +page + 1;
+      response.next = {
+        page: nextPage,
+        url: `${URL}?page=${nextPage}&limit=${limit}`
+      }
+    }
+
+    // previous page data node
+    if (page > 1) {
+      const prevPage = page - 1;
+      response.prev = {
+        page: prevPage,
+        url: `${URL}?page=${prevPage}&limit=${limit}`
+      }
     }
 
     res.status(200).json(response);
