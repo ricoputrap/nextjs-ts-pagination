@@ -1,7 +1,8 @@
 import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
 import Head from 'next/head'
+import { useEffect } from 'react'
 import DepartmentTable from '../components/organisms/DepartmentTable '
-import { Department } from '../types/department.types'
+import useDepartmentTable from '../hooks/useDepartmentTable'
 import { ResponseMultiple } from '../types/response.types'
 
 type Props = {
@@ -9,7 +10,11 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ data }) => {
-  const departmentsData: Department[] = data.data;
+  const { initData } = useDepartmentTable();
+
+  useEffect(() => {
+    if (!!data) initData(data);
+  }, [data, initData]);
 
   return (
     <div>
@@ -20,7 +25,7 @@ const Home: NextPage<Props> = ({ data }) => {
       </Head>
 
       <main>
-        <DepartmentTable data={ departmentsData } />
+        <DepartmentTable />
       </main>
 
       <footer>

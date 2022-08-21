@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { DepartmentContextType } from "../types/context.types";
-import DepartmentContext from "./context";
+import DepartmentContext from "./DepartmentContext";
 
-export const useDepartment = (): DepartmentContextType => {
+export const useDepartmentContext = (): DepartmentContextType => {
   return useContext(DepartmentContext);
 }

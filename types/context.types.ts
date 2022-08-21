@@ -1,3 +1,4 @@
+import ACTION_TYPES from "../context/action-types";
 import { Department } from "./department.types"
 
 export type DepartmentStateType = {
@@ -6,10 +7,5 @@ export type DepartmentStateType = {
 
 export type DepartmentContextType = {
   state: DepartmentStateType;
-  callDispatch: (type: string, payload: any) => void;
-}
-
-export type ActionType = {
-  type: string;
-  payload: any;
+  callDispatch: (type: ACTION_TYPES, payload: any) => void;
 }

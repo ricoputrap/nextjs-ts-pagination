@@ -1,6 +1,7 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import DepartmentProvider from '../context/DepartmentProvider';
 
 const theme = extendTheme({
   fonts: {
@@ -12,7 +13,9 @@ const theme = extendTheme({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={ theme }>
-      <Component {...pageProps} />
+      <DepartmentProvider>
+        <Component {...pageProps} />
+      </DepartmentProvider>
     </ChakraProvider>
   )
 }

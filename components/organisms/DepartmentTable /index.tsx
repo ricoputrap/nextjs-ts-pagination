@@ -1,11 +1,10 @@
 import React from 'react'
+import useDepartmentTable from '../../../hooks/useDepartmentTable';
 import MainTable from '../MainTable'
 
-type Props = {
-  data: any
-}
+const DepartmentTable: React.FC = () => {
+  const { departments } = useDepartmentTable();
 
-const DepartmentTable: React.FC<Props> = (data) => {
   const columns = [
     { id: "name", label: "Name" },
     { id: "pic", label: "PIC" },
@@ -13,13 +12,11 @@ const DepartmentTable: React.FC<Props> = (data) => {
     { id: "members", label: "Members" },
   ];
 
-  const items = data.data;
-
   return (
     <>
       <MainTable
         columns={ columns }
-        data={ items }
+        data={ departments }
       />
     </>
   )

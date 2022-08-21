@@ -4,7 +4,7 @@ import { TableColumnType, TableDataType } from '../../../types/table.types';
 
 type Props = {
   columns: TableColumnType[];
-  data: TableDataType[];
+  data: any[];
 }
 
 const MainTable: React.FC<Props> = ({ columns, data }) => {

@@ -1,10 +1,7 @@
-import { DepartmentContextType } from "../types/context.types";
+import { DepartmentStateType } from "../types/context.types";
 
-const initalState: DepartmentContextType = {
-  state: {
-    departments: [],
-  },
-  callDispatch: (type, payload) => {}
+const initalState: DepartmentStateType = {
+  departments: [],
 }
 
 export default initalState;
