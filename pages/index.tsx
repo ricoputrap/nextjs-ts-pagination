@@ -1,12 +1,16 @@
 import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
 import Head from 'next/head'
 import DepartmentTable from '../components/organisms/DepartmentTable '
+import { Department } from '../types/department.types'
+import { ResponseMultiple } from '../types/response.types'
 
 type Props = {
-  data: any
+  data: ResponseMultiple
 }
 
 const Home: NextPage<Props> = ({ data }) => {
+  const departmentsData: Department[] = data.data;
+
   return (
     <div>
       <Head>
@@ -16,7 +20,7 @@ const Home: NextPage<Props> = ({ data }) => {
       </Head>
 
       <main>
-        <DepartmentTable data={ data } />
+        <DepartmentTable data={ departmentsData } />
       </main>
 
       <footer>
@@ -27,16 +31,16 @@ const Home: NextPage<Props> = ({ data }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-  const HOST = "https://nextjs-ts-pagination.vercel.app"
-  const URL = HOST + "/api/departments";
-  const res = await fetch(URL);
-  const data = await res.json();
+  const HOST: string = "https://nextjs-ts-pagination.vercel.app"
+  const URL: string = HOST + "/api/departments";
+  const res: Response = await fetch(URL);
+  const data: ResponseMultiple = await res.json();
 
-  return {
-    props: {
-      data: data.data
-    }
+  const props: Props = {
+    data
   }
+
+  return { props }
 }
 
 export default Home

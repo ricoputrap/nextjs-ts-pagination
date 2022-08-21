@@ -1,14 +1,6 @@
 import { Box, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React from 'react'
-
-type TableColumnType = {
-  id: string;
-  label: string;
-}
-
-type TableDataType = {
-  id: string;
-}
+import { TableColumnType, TableDataType } from '../../../types/table.types';
 
 type Props = {
   columns: TableColumnType[];
