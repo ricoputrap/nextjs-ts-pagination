@@ -1,15 +1,12 @@
 import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
 import Head from 'next/head'
-import MainTable from '../components/organisms/MainTable'
+import DepartmentTable from '../components/organisms/DepartmentTable '
 
 type Props = {
   data: any
 }
 
 const Home: NextPage<Props> = ({ data }) => {
-  
-  console.log("===== data:", data)
-
   return (
     <div>
       <Head>
@@ -19,7 +16,7 @@ const Home: NextPage<Props> = ({ data }) => {
       </Head>
 
       <main>
-        <MainTable />
+        <DepartmentTable data={ data } />
       </main>
 
       <footer>
@@ -37,7 +34,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
 
   return {
     props: {
-      data
+      data: data.data
     }
   }
 }
