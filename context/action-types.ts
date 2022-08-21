@@ -1,0 +1,6 @@
+enum ACTION_TYPES {
+  SET_DEPARTMENTS,
+  ACTION
+}
+
+export default ACTION_TYPES;
