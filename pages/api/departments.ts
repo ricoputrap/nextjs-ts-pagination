@@ -18,14 +18,14 @@ export default function handler(
       ? JSON.parse(params["filter"])
       : {};
 
-    const totalItems: number = service.getTotalDepartments();
+    const totalItems: number = service.getTotalDepartments(filter);
     const totalPages = Math.ceil(totalItems / limit);
 
     // page not found
     if (page > totalPages)
       throw new Error(`Page not found. Page ${page} is requested, only ${totalPages} pages are available.`);
 
-    const departments: Department[] = service.getDepartments(page, limit);
+    const departments: Department[] = service.getDepartments(page, limit, filter);
     
     const response: ResponseMultiple = {
       data: departments,
