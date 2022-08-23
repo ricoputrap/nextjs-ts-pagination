@@ -1,8 +1,7 @@
+import { Box, Heading, Stack } from '@chakra-ui/react'
 import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
 import Head from 'next/head'
-import { useEffect } from 'react'
 import DepartmentTable from '../components/organisms/DepartmentTable '
-import useDepartmentTable from '../hooks/useDepartmentTable'
 import { ResponseMultiple } from '../types/response.types'
 
 type Props = {
@@ -11,21 +10,38 @@ type Props = {
 
 const Home: NextPage<Props> = ({ data }) => {
   return (
-    <div>
+    <Box>
       <Head>
         <title>Departments</title>
         <meta name="description" content="A simple way of displaying data using server-side pagination fully coded in Next JS, TypeScript, and Chakra UI." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <DepartmentTable data={ data } />
+      <main style={{
+        display: "flex",
+        justifyContent: "center",
+        padding: "100px"
+      }}>
+        <Box
+          width={{ base: "660px", lg: "764px" }}
+          background="gray.100"
+          paddingX="20px"
+          paddingY="40px"
+          borderRadius="10px"
+        >
+          <Stack>
+            <Heading size="lg" textAlign="center" marginBottom="20px">
+              Data Table using Pagination + useSWR
+            </Heading>
+            <DepartmentTable data={ data } />
+          </Stack>
+        </Box>
       </main>
 
       <footer>
         
       </footer>
-    </div>
+    </Box>
   )
 }
 

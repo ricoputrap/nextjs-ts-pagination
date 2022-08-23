@@ -19,7 +19,7 @@ const MainTable: React.FC<Props> = ({
 }) => {
   return (
     <Box>
-      <TableContainer>
+      <TableContainer borderRadius="10px">
         <Table variant="simple">
           <Thead background="cyan.100">
             <Tr>
@@ -34,7 +34,7 @@ const MainTable: React.FC<Props> = ({
             </Tr>
           </Thead>
 
-          <Tbody>
+          <Tbody background="white">
             {data.map((item: any) => (
               <Tr key={ item.id }>
                 { columns.map(col => {
