@@ -30,7 +30,7 @@ const TablePagination: React.FC<Props> = ({
         background="cyan.50"
         padding="8px"
         marginTop="8px"
-        borderRadius="4px"
+        borderRadius="10px"
       >
         <Button
           background="cyan.100"
