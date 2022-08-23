@@ -12,7 +12,8 @@ export default function handler(
 
   try {
     const HOST = req.headers.host;
-    const URL = process.env.PROTOCOL + HOST + "/api/departments";
+    const PROTOCOL: string = process.env.PROTOCOL || "";
+    const URL = PROTOCOL + HOST + "/api/departments";
 
     const params: Params = req.query;
     const page: number = params["page"] || 1;
