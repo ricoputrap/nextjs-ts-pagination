@@ -1,18 +1,21 @@
 import { Box, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import React from 'react'
-import { TableColumnType, TableDataType } from '../../../types/table.types';
+import { TableColumnType } from '../../../types/table.types';
+import TablePagination from '../../molecules/TablePagination';
 
 type Props = {
   columns: TableColumnType[];
   data: any[];
+  seeNextPage: () => Promise<void>;
+  seePrevPage: () => Promise<void>;
 }
 
-const MainTable: React.FC<Props> = ({ columns, data }) => {
+const MainTable: React.FC<Props> = ({ columns, data, seePrevPage, seeNextPage }) => {
   return (
     <Box>
       <TableContainer>
         <Table variant="simple">
-          <Thead>
+          <Thead background="cyan.100">
             <Tr>
               { columns.map((col: any) => (
                 <Th 
@@ -43,6 +46,11 @@ const MainTable: React.FC<Props> = ({ columns, data }) => {
           </Tbody>
         </Table>
       </TableContainer>
+
+      <TablePagination 
+        seeNextPage={ seeNextPage }
+        seePrevPage={ seePrevPage }
+      />
     </Box>
   )
 }

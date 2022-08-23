@@ -10,12 +10,6 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ data }) => {
-  const { initData } = useDepartmentTable();
-
-  useEffect(() => {
-    if (!!data) initData(data);
-  }, [data, initData]);
-
   return (
     <div>
       <Head>
@@ -25,7 +19,7 @@ const Home: NextPage<Props> = ({ data }) => {
       </Head>
 
       <main>
-        <DepartmentTable />
+        <DepartmentTable data={ data } />
       </main>
 
       <footer>
@@ -36,7 +30,7 @@ const Home: NextPage<Props> = ({ data }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-  const HOST: string = "https://nextjs-ts-pagination.vercel.app"
+  const HOST: string = process.env.HOST || "";
   const URL: string = HOST + "/api/departments";
   const res: Response = await fetch(URL);
   const data: ResponseMultiple = await res.json();

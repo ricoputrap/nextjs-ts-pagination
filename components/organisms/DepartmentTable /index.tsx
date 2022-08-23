@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useDepartmentTable from '../../../hooks/useDepartmentTable';
+import { ResponseMultiple } from '../../../types/response.types';
 import MainTable from '../MainTable'
 
-const DepartmentTable: React.FC = () => {
-  const { departments } = useDepartmentTable();
+type Props = {
+  data: ResponseMultiple;
+}
+
+const DepartmentTable: React.FC<Props> = ({ data }) => {
+  const { initData, departments, seeNextPage, seePrevPage } = useDepartmentTable();
+
+  useEffect(() => {
+    initData(data);
+  }, [data]);
 
   const columns = [
     { id: "name", label: "Name" },
@@ -17,6 +26,8 @@ const DepartmentTable: React.FC = () => {
       <MainTable
         columns={ columns }
         data={ departments }
+        seeNextPage={ seeNextPage }
+        seePrevPage={ seePrevPage }
       />
     </>
   )
