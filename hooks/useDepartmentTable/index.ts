@@ -1,25 +1,29 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { useDepartmentContext } from '../../context';
 import ACTION_TYPES from '../../context/action-types';
-import { OtherPage, ResponseMultiple } from '../../types/response.types';
+import { ResponseMultiple } from '../../types/response.types';
 
 const useDepartmentTable = () => {
   const {
-    state: { departments },
+    state: {
+      departments,
+      page,
+      pageTotal,
+      prevPage,
+      nextPage
+    },
     callDispatch
   } = useDepartmentContext();
 
-  const [page, setPage] = useState<number>(1);
-  const [pageTotal, setPageTotal] = useState<number>(1);
-  const [nextPage, setNextPage] = useState<OtherPage>();
-  const [prevPage, setPrevPage] = useState<OtherPage>();
-
   const initData = useCallback((response: ResponseMultiple) => {
     const { data, totalPages, next, prev } = response;
-    setPageTotal(totalPages);
-    setNextPage(next);
-    setPrevPage(prev);
-    callDispatch(ACTION_TYPES.SET_DEPARTMENTS, data);
+    callDispatch(ACTION_TYPES.SET_DEPARTMENTS_DATA, {
+      departments: data,
+      pageTotal: totalPages,
+      nextPage: next,
+      prevPage: prev,
+      page,
+    });
   }, [])
 
 
@@ -28,12 +32,15 @@ const useDepartmentTable = () => {
     try {
       const res: Response = await fetch(nextPage.url);
       const data: ResponseMultiple = await res.json();
+      const { data: departments, totalPages, next, prev } = data;
 
-      setPage(nextPage.page);
-      setPageTotal(data.totalPages);
-      setNextPage(data.next);
-      setPrevPage(data.prev);
-      callDispatch(ACTION_TYPES.SET_DEPARTMENTS, data.data);
+      callDispatch(ACTION_TYPES.SET_DEPARTMENTS_DATA, {
+        departments,
+        pageTotal: totalPages,
+        nextPage: next,
+        prevPage: prev,
+        page: nextPage.page,
+      });
     }
     catch (e) {
       console.error(e)
@@ -45,12 +52,15 @@ const useDepartmentTable = () => {
     try {
       const res: Response = await fetch(prevPage.url);
       const data: ResponseMultiple = await res.json();
+      const { data: departments, totalPages, next, prev } = data;
 
-      setPage(prevPage.page);
-      setPageTotal(data.totalPages);
-      setNextPage(data.next);
-      setPrevPage(data.prev);
-      callDispatch(ACTION_TYPES.SET_DEPARTMENTS, data.data);
+      callDispatch(ACTION_TYPES.SET_DEPARTMENTS_DATA, {
+        departments,
+        pageTotal: totalPages,
+        nextPage: next,
+        prevPage: prev,
+        page: prevPage.page,
+      });
     }
     catch (e) {
       console.error(e)
@@ -61,6 +71,8 @@ const useDepartmentTable = () => {
     departments, 
     page,
     pageTotal,
+    nextPage,
+    prevPage,
     initData,
     seeNextPage,
     seePrevPage

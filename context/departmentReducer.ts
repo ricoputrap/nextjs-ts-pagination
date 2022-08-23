@@ -7,9 +7,9 @@ const departmentReducer = (
   action: ACTIONS
 ): DepartmentStateType => {
   switch (action.type) {
-    case ACTION_TYPES.SET_DEPARTMENTS:
+    case ACTION_TYPES.SET_DEPARTMENTS_DATA:
       return {
-        departments: action.payload
+        ...action.payload
       }
 
     default:
