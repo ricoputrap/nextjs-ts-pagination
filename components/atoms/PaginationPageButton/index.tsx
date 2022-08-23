@@ -4,7 +4,7 @@ import React from 'react'
 type Props = {
   num: number;
   isActive: boolean;
-  seePage: (pageNum: number) => Promise<void>;
+  seePage: (pageNum: number) => void;
 }
 
 const PaginationPageButton: React.FC<Props> = ({ 

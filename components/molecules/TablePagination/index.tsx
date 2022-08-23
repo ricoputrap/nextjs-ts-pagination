@@ -5,9 +5,9 @@ import PaginationPageButton from '../../atoms/PaginationPageButton';
 type Props = {
   page: number;
   pageTotal: number;
-  seeNextPage: () => Promise<void>;
-  seePrevPage: () => Promise<void>;
-  seePage: (pageNum: number) => Promise<void>;
+  seeNextPage: () => void;
+  seePrevPage: () => void;
+  seePage: (pageNum: number) => void;
 }
 
 const TablePagination: React.FC<Props> = ({ 

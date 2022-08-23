@@ -8,9 +8,9 @@ type Props = {
   data: any[];
   page: number;
   pageTotal: number;
-  seeNextPage: () => Promise<void>;
-  seePrevPage: () => Promise<void>;
-  seePage: (pageNum: number) => Promise<void>;
+  seeNextPage: () => void;
+  seePrevPage: () => void;
+  seePage: (pageNum: number) => void;
 }
 
 const MainTable: React.FC<Props> = ({ 
