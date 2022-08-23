@@ -1,7 +1,9 @@
 import { Box, Heading, Stack } from '@chakra-ui/react'
 import type { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next'
 import Head from 'next/head'
+import LoadingBox from '../components/molecules/LoadingBox'
 import DepartmentTable from '../components/organisms/DepartmentTable '
+import useDepartments from '../hooks/useDepartments'
 import { ResponseMultiple } from '../types/response.types'
 
 type Props = {
@@ -9,6 +11,7 @@ type Props = {
 }
 
 const Home: NextPage<Props> = ({ data }) => {
+  const { isLoading } = useDepartments();
   return (
     <Box>
       <Head>
@@ -20,22 +23,25 @@ const Home: NextPage<Props> = ({ data }) => {
       <main style={{
         display: "flex",
         justifyContent: "center",
-        padding: "100px"
+        alignItems: "center",
+        height: "100vh"
       }}>
-        <Box
-          width={{ base: "660px", lg: "764px" }}
-          background="gray.100"
-          paddingX="20px"
-          paddingY="40px"
-          borderRadius="10px"
-        >
-          <Stack>
-            <Heading size="lg" textAlign="center" marginBottom="20px">
-              Data Table using Pagination + useSWR
-            </Heading>
-            <DepartmentTable data={ data } />
-          </Stack>
-        </Box>
+        {isLoading ? <LoadingBox /> : (
+          <Box
+            width={{ base: "660px", lg: "764px" }}
+            background="gray.100"
+            paddingX="20px"
+            paddingY="40px"
+            borderRadius="10px"
+          >
+            <Stack>
+              <Heading size="lg" textAlign="center" marginBottom="20px">
+                Data Table using Pagination + useSWR
+              </Heading>
+              <DepartmentTable data={ data } />
+            </Stack>
+          </Box>
+        )}
       </main>
 
       <footer>
