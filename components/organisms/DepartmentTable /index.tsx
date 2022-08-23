@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import useDepartments from '../../../hooks/useDepartments';
 import { ResponseMultiple } from '../../../types/response.types';
+import LoadingBox from '../../molecules/LoadingBox';
 import MainTable from '../MainTable'
 
 type Props = {
@@ -11,6 +12,7 @@ const DepartmentTable: React.FC<Props> = ({ data }) => {
   const { 
     departments, page, pageTotal,
     initData, seeNextPage, seePrevPage, seePage,
+    isLoading
   } = useDepartments();
 
   useEffect(() => {
@@ -26,6 +28,7 @@ const DepartmentTable: React.FC<Props> = ({ data }) => {
 
   return (
     <>
+      {isLoading && <LoadingBox />}
       <MainTable
         columns={ columns }
         data={ departments }
