@@ -10,11 +10,12 @@ type Props = {
   pageTotal: number;
   seeNextPage: () => Promise<void>;
   seePrevPage: () => Promise<void>;
+  seePage: (pageNum: number) => Promise<void>;
 }
 
 const MainTable: React.FC<Props> = ({ 
   columns, data, page, pageTotal,
-  seePrevPage, seeNextPage
+  seePrevPage, seeNextPage, seePage
 }) => {
   return (
     <Box>
@@ -57,6 +58,7 @@ const MainTable: React.FC<Props> = ({
         pageTotal={ pageTotal }
         seeNextPage={ seeNextPage }
         seePrevPage={ seePrevPage }
+        seePage={ seePage }
       />
     </Box>
   )

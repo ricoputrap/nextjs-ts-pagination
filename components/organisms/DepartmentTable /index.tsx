@@ -10,7 +10,7 @@ type Props = {
 const DepartmentTable: React.FC<Props> = ({ data }) => {
   const {
     departments, page, pageTotal,
-    initData, seeNextPage, seePrevPage
+    initData, seeNextPage, seePrevPage, seePage
   } = useDepartmentTable();
 
   useEffect(() => {
@@ -33,6 +33,7 @@ const DepartmentTable: React.FC<Props> = ({ data }) => {
         pageTotal={ pageTotal }
         seeNextPage={ seeNextPage }
         seePrevPage={ seePrevPage }
+        seePage={ seePage }
       />
     </>
   )

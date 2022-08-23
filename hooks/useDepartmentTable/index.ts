@@ -67,6 +67,27 @@ const useDepartmentTable = () => {
     }
   }
 
+  const seePage = async (pageNum: number) => {
+    try {
+      const HOST: string = process.env.NEXT_PUBLIC_HOST || "";
+      const URL: string = HOST + "/api/departments?page=" + pageNum;
+      const res: Response = await fetch(URL);
+      const data: ResponseMultiple = await res.json();
+      const { data: departments, totalPages, next, prev } = data;
+
+      callDispatch(ACTION_TYPES.SET_DEPARTMENTS_DATA, {
+        departments,
+        pageTotal: totalPages,
+        nextPage: next,
+        prevPage: prev,
+        page: pageNum
+      });
+    }
+    catch (e) {
+      console.error(e);
+    }
+  }
+
   return {
     departments, 
     page,
@@ -75,7 +96,8 @@ const useDepartmentTable = () => {
     prevPage,
     initData,
     seeNextPage,
-    seePrevPage
+    seePrevPage,
+    seePage
   }
 }
 

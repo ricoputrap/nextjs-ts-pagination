@@ -7,11 +7,12 @@ type Props = {
   pageTotal: number;
   seeNextPage: () => Promise<void>;
   seePrevPage: () => Promise<void>;
+  seePage: (pageNum: number) => Promise<void>;
 }
 
 const TablePagination: React.FC<Props> = ({ 
   page, pageTotal, 
-  seeNextPage, seePrevPage
+  seeNextPage, seePrevPage, seePage
 }) => {
   const pageNumbers: number[] = useMemo(() => {
     const pages: number[] = new Array<number>(pageTotal);
@@ -43,6 +44,7 @@ const TablePagination: React.FC<Props> = ({
               key={num}
               num={num}
               isActive={page == num}
+              seePage={ seePage }
             />
           ))}
         </Flex>

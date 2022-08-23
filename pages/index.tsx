@@ -30,7 +30,7 @@ const Home: NextPage<Props> = ({ data }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
-  const HOST: string = process.env.HOST || "";
+  const HOST: string = process.env.NEXT_PUBLIC_HOST || "";
   const URL: string = HOST + "/api/departments";
   const res: Response = await fetch(URL);
   const data: ResponseMultiple = await res.json();
