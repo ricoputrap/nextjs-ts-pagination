@@ -11,7 +11,6 @@ const DepartmentTable: React.FC<Props> = ({ data }) => {
   const { 
     departments, page, pageTotal,
     initData, seeNextPage, seePrevPage, seePage,
-    isLoading, error
   } = useDepartments();
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const DepartmentTable: React.FC<Props> = ({ data }) => {
     { id: "members", label: "Members" },
   ];
 
-  return isLoading ? <div>IS LOADING ....</div> : (
+  return (
     <>
       <MainTable
         columns={ columns }
