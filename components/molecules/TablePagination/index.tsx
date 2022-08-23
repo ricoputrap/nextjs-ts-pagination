@@ -1,13 +1,28 @@
-import { Box, Button, Flex } from '@chakra-ui/react'
-import React from 'react'
+import { Button, Flex } from '@chakra-ui/react'
+import React, { useMemo } from 'react'
+import PaginationPageButton from '../../atoms/PaginationPageButton';
 
 type Props = {
+  page: number;
+  pageTotal: number;
   seeNextPage: () => Promise<void>;
   seePrevPage: () => Promise<void>;
+  seePage: (pageNum: number) => Promise<void>;
 }
 
-const TablePagination: React.FC<Props> = ({ seeNextPage, seePrevPage }) => {
-  
+const TablePagination: React.FC<Props> = ({ 
+  page, pageTotal, 
+  seeNextPage, seePrevPage, seePage
+}) => {
+  const pageNumbers: number[] = useMemo(() => {
+    const pages: number[] = new Array<number>(pageTotal);
+    for (let i = 0; i < pageTotal; i++) {
+      pages[i] = i + 1;
+    }
+
+    return pages;
+  }, [pageTotal]);
+
   return (
     <Flex justifyContent="center">
       <Flex
@@ -17,14 +32,28 @@ const TablePagination: React.FC<Props> = ({ seeNextPage, seePrevPage }) => {
         marginTop="8px"
         borderRadius="4px"
       >
-        <Button onClick={ seePrevPage }>Prev</Button>
+        <Button
+          background="cyan.100"
+          onClick={ seePrevPage }
+        >
+          Prev
+        </Button>
         <Flex columnGap="4px">
-          <Button>1</Button>
-          <Button>2</Button>
-          <Button>3</Button>
-          <Button>4</Button>
+          {pageNumbers.map(num => (
+            <PaginationPageButton
+              key={num}
+              num={num}
+              isActive={page == num}
+              seePage={ seePage }
+            />
+          ))}
         </Flex>
-        <Button onClick={ seeNextPage }>Next</Button>
+        <Button
+          background="cyan.100"
+          onClick={ seeNextPage }
+        >
+          Next
+        </Button>
       </Flex>
     </Flex>
   )

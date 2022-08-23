@@ -6,11 +6,17 @@ import TablePagination from '../../molecules/TablePagination';
 type Props = {
   columns: TableColumnType[];
   data: any[];
+  page: number;
+  pageTotal: number;
   seeNextPage: () => Promise<void>;
   seePrevPage: () => Promise<void>;
+  seePage: (pageNum: number) => Promise<void>;
 }
 
-const MainTable: React.FC<Props> = ({ columns, data, seePrevPage, seeNextPage }) => {
+const MainTable: React.FC<Props> = ({ 
+  columns, data, page, pageTotal,
+  seePrevPage, seeNextPage, seePage
+}) => {
   return (
     <Box>
       <TableContainer>
@@ -47,9 +53,12 @@ const MainTable: React.FC<Props> = ({ columns, data, seePrevPage, seeNextPage })
         </Table>
       </TableContainer>
 
-      <TablePagination 
+      <TablePagination
+        page={ page }
+        pageTotal={ pageTotal }
         seeNextPage={ seeNextPage }
         seePrevPage={ seePrevPage }
+        seePage={ seePage }
       />
     </Box>
   )

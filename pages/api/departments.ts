@@ -11,7 +11,7 @@ export default function handler(
   const service = new DepartmentService();
 
   try {
-    const HOST: string = process.env.HOST || "";
+    const HOST: string = process.env.NEXT_PUBLIC_HOST || "";
     const URL = HOST + "/api/departments";
 
     const params: Params = req.query;
