@@ -31,13 +31,27 @@ const TablePagination: React.FC<Props> = ({
         marginTop="8px"
         borderRadius="4px"
       >
-        <Button onClick={ seePrevPage }>Prev</Button>
+        <Button
+          background="cyan.100"
+          onClick={ seePrevPage }
+        >
+          Prev
+        </Button>
         <Flex columnGap="4px">
           {pageNumbers.map(num => (
-            <PaginationPageButton key={num} num={num} />
+            <PaginationPageButton
+              key={num}
+              num={num}
+              isActive={page == num}
+            />
           ))}
         </Flex>
-        <Button onClick={ seeNextPage }>Next</Button>
+        <Button
+          background="cyan.100"
+          onClick={ seeNextPage }
+        >
+          Next
+        </Button>
       </Flex>
     </Flex>
   )
