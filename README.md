@@ -5,9 +5,9 @@ This is an SPA made using `Next JS` + `TypeScript` as the framework, `useSWR` as
 ## Data Models
 There will be two data models that can be managed using this app: `Department` and `Employee`. 
 
-## Roadmap
-- [x] Displaying a Department data table using a simple server-side pagination.
-- [ ] Enable users to filter the data in Department data table.
-- [ ] Enable users to sort the Department data table by any column.
-- [ ] Enable users to search any data in Department data table.
-- [ ] Enable users to ...
+## User Stories
+- [x] US-1 As a user, I want to see the list of departments.
+- [ ] US-2 As a user, I want to be able to set the total items displayed in the list of departments.
+- [ ] US-3 As a user, I want to be able to filter the data in the list of departments. 
+- [ ] US-4 As a user, I want to be able to sort the list of departments by any column in the data table.
+- [ ] US-5 As a user, I want to be able to search any data in the list of departments.
