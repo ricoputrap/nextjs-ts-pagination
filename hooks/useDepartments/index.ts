@@ -1,7 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import useSWR, { Fetcher } from 'swr';
-import { Department } from '../../types/department.types';
-import { OtherPage, ResponseMultiple } from '../../types/response.types';
+import { useDepartmentContext } from '../../context';
+import ACTION_TYPES from '../../context/action-types';
+import { ResponseMultiple } from '../../types/response.types';
 
 const fetcher: Fetcher<ResponseMultiple, string> = (url: string): Promise<ResponseMultiple> => {
   const HOST: string = process.env.NEXT_PUBLIC_HOST || "";
@@ -10,53 +11,60 @@ const fetcher: Fetcher<ResponseMultiple, string> = (url: string): Promise<Respon
   return fetch(URL).then(res => res.json());
 }
 
-const useDepartments = () => {
-  const [departments, setDepartments] = useState<Department[]>([]);
-  const [page, setPage] = useState<number>(1);
-  const [pageTotal, setPageTotal] = useState<number>(1);
-  const [nextPage, setNextPage] = useState<OtherPage>();
-  const [prevPage, setPrevPage] = useState<OtherPage>();
+const { SET_DEPARTMENTS_DATA, SET_PAGE } = ACTION_TYPES;
 
-  const initData = useCallback((response: ResponseMultiple) => {
+const useDepartments = () => {
+  const {
+    state: {
+      departments,
+      page,
+      pageTotal,
+      prevPage,
+      nextPage
+    },
+    callDispatch
+  } = useDepartmentContext();
+
+  const setData = useCallback((response: ResponseMultiple, page: number = 1) => {
     const { data: departments, totalPages, next, prev } = response;
-    setDepartments(departments);
-    setPageTotal(totalPages);
-    setNextPage(next);
-    setPrevPage(prev);
+
+    callDispatch(SET_DEPARTMENTS_DATA, {
+      departments,
+      page,
+      pageTotal: totalPages,
+      nextPage: next,
+      prevPage: prev
+    });
+
   }, []);
 
   const seeNextPage = useCallback(() => {
     if (!nextPage) return;
 
-    setPage(nextPage.page);
+    callDispatch(SET_PAGE, nextPage.page);
   }, [nextPage]);
 
   const seePrevPage = useCallback(() => {
     if (!prevPage) return;
 
-    setPage(prevPage.page);
+    callDispatch(SET_PAGE, prevPage.page);
   }, [prevPage]);
 
   const seePage = (pageNum: number) => {
-    setPage(pageNum);
+    callDispatch(SET_PAGE, pageNum);
   }
 
   const { data, error } = useSWR<ResponseMultiple, Error>(`/api/departments?page=${page}`, fetcher);
   useEffect(() => {
     if (error || !data) return;
 
-    const { data: departments, totalPages, next, prev } = data;
-
-    setDepartments(departments);
-    setPageTotal(totalPages);
-    setNextPage(next);
-    setPrevPage(prev);
+    setData(data, page);
   }, [data, error]);
 
 
   return { 
     departments, page, pageTotal,
-    initData, seeNextPage, seePrevPage, seePage,
+    setData, seeNextPage, seePrevPage, seePage,
     isLoading: !error && !data,
     error
   }

@@ -1,4 +1,4 @@
-import { Context, createContext, useContext } from "react";
+import { Context, createContext } from "react";
 import { DepartmentContextType } from "../types/context.types";
 import ACTION_TYPES from "./action-types";
 

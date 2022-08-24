@@ -11,12 +11,12 @@ type Props = {
 const DepartmentTable: React.FC<Props> = ({ data }) => {
   const { 
     departments, page, pageTotal,
-    initData, seeNextPage, seePrevPage, seePage,
+    setData, seeNextPage, seePrevPage, seePage,
     isLoading
   } = useDepartments();
 
   useEffect(() => {
-    initData(data);
+    if (!!data) setData(data);
   }, [data]);
 
   const columns = [
